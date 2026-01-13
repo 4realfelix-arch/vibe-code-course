@@ -146,8 +146,25 @@ def build_prompt_with_memory(message: str, memories: List[dict]) -> str:
     if not memories:
         return message
     
+    # Sanitize memory content to prevent prompt injection
+    def sanitize_memory(mem_text: str) -> str:
+        """Remove potential prompt injection patterns"""
+        # Remove system-level instructions and prompt markers
+        dangerous_patterns = [
+            "Ignore previous instructions",
+            "System:",
+            "Assistant:",
+            "###",
+            "---",
+        ]
+        sanitized = mem_text
+        for pattern in dangerous_patterns:
+            sanitized = sanitized.replace(pattern, "")
+        # Limit length per memory
+        return sanitized[:200]
+    
     memory_context = "\n".join([
-        f"- {mem.get('memory', mem.get('content', ''))}"
+        f"- {sanitize_memory(mem.get('memory', mem.get('content', '')))}"
         for mem in memories
     ])
     

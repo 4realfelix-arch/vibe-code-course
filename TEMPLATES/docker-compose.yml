@@ -54,6 +54,8 @@ services:
     container_name: atomic-cat-redis
     ports:
       - "6379:6379"
+    # Note: In production, use redis.conf file instead of command-line args
+    # to avoid password exposure in process lists
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis_data:/data

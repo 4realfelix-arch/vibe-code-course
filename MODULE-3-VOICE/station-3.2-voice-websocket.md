@@ -46,7 +46,7 @@ class VoiceSession:
     websocket: WebSocket
     user_id: str
     state: SessionState = SessionState.IDLE
-    audio_buffer: list = field(default_factory=list)
+    audio_buffer: list[np.ndarray] = field(default_factory=list)
     tts_task: Optional[asyncio.Task] = None
     created_at: datetime = field(default_factory=datetime.now)
     
