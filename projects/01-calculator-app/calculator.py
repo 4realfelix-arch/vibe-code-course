@@ -18,7 +18,7 @@ def multiply(a, b):
 def divide(a, b):
     """Divide a by b"""
     if b == 0:
-        return "Error: Division by zero"
+        raise ValueError("Error: Division by zero")
     return a / b
 
 def get_number(prompt):
@@ -53,8 +53,11 @@ def calculator():
         
         num2 = get_number("Enter second number: ")
         
-        result = operations[op](num1, num2)
-        print(f"\nResult: {num1} {op} {num2} = {result}")
+        try:
+            result = operations[op](num1, num2)
+            print(f"\nResult: {num1} {op} {num2} = {result}")
+        except ValueError as e:
+            print(f"\n{e}")
         
         continue_calc = input("\nContinue? (y/n): ").lower()
         if continue_calc != 'y':

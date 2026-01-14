@@ -134,7 +134,12 @@ print(f"10 / 5 = {divide(10, 5)}")
 # Exercise 3: Email Validator
 def is_valid_email(email):
     """Check if email is valid (basic validation)"""
-    return '@' in email and '.' in email.split('@')[1]
+    if '@' not in email:
+        return False
+    parts = email.split('@')
+    if len(parts) != 2:
+        return False
+    return '.' in parts[1]
 
 test_emails = ["atomic@cat.ai", "invalid.email", "test@domain"]
 print("\nEmail Validation:")

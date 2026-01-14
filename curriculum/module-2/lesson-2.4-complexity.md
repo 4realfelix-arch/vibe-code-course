@@ -271,7 +271,9 @@ def fib_slow(n):
     return fib_slow(n-1) + fib_slow(n-2)
 
 # Fast: O(n)
-def fib_fast(n, memo={}):
+def fib_fast(n, memo=None):
+    if memo is None:
+        memo = {}
     if n in memo:
         return memo[n]
     if n <= 1:
